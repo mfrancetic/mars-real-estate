@@ -21,11 +21,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.example.android.marsrealestate.databinding.FragmentDetailBinding
 
 /**
- * This [Fragment] will show the detailed information about a selected piece of Mars real estate.
+ * * This [Fragment] shows the detailed information about a selected piece of Mars real estate.
+ * It sets this information in the [DetailViewModel], which it gets as a Parcelable property
+ * through Jetpack Navigation's SafeArgs.
  */
 class DetailFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +36,16 @@ class DetailFragment : Fragment() {
         @Suppress("UNUSED_VARIABLE")
         val application = requireNotNull(activity).application
         val binding = FragmentDetailBinding.inflate(inflater)
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
+
+        // Get the selectedPropery from the fragment arguments with DetailFragmentArgs
+        val marsProperty = DetailFragmentArgs.fromBundle(arguments!!).selectedProperty;
+
+        val viewModelFactory = DetailViewModelFactory(marsProperty, application);
+        val viewModel = ViewModelProvider(this, viewModelFactory).get(DetailViewModel::class.java);
+
+        binding.viewModel = viewModel;
+
         return binding.root
     }
 }
