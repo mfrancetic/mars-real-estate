@@ -1,6 +1,6 @@
 # Mars Real Estate
 
-This is an pp for the [Android App Development in Kotlin course on Udacity](https://classroom.udacity.com/courses/ud9012/).
+This is an app for the [Android App Development in Kotlin course on Udacity](https://classroom.udacity.com/courses/ud9012/).
 
 ## MarsRealEstate
 
